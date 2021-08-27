@@ -7,8 +7,6 @@ on:
 
 jobs:
   deploy:
-    # Skip job based on the commit message
-    if: contains(toJson(github.event.commits), '[skip ci]') == false
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
@@ -16,7 +14,8 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.66.0'
+          hugo-version: '0.83.1'
+          extended: true
       - name: Build
         run: chmod +x build-site.sh && ./build-site.sh
         env:
@@ -26,7 +25,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.SELENIUM_CI_TOKEN }}
-          publish_dir: ./site_source_files/public
+          publish_dir: ./website_and_docs/public
           publish_branch: publish
           user_name: 'Selenium CI Bot'
           user_email: 'selenium-ci@users.noreply.github.com'
