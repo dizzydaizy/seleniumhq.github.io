@@ -6,15 +6,6 @@ cascade:
 aliases: ["/documentation/pt-br/"]
 ---
 
-{{% pageinfo color="warning" %}}
-<p class="lead">
-   <i class="fas fa-language display-4"></i> 
-   Page being translated from 
-   English to Portuguese. Do you speak Portuguese? Help us to translate
-   it by sending us pull requests!
-</p>
-{{% /pageinfo %}}
-
 Selenium é um projeto que abrange uma variedade de ferramentas e bibliotecas
 que permitem e suportam a automação de navegadores da web.
 
@@ -25,7 +16,7 @@ que permite escrever código intercambiável para todos os principais navegadore
 
 Este projeto é possível graças a colaboradores voluntários
 que dedicam milhares de horas de seu próprio tempo,
-e disponibilizaram o código-fonte [disponível gratuitamente]({{< ref "/copyright_and_attributions.pt-br.md#license" >}})
+e disponibilizaram o código-fonte [disponível gratuitamente]({{< ref "copyright.md#license" >}})
 para qualquer um usar, aproveitar e melhorar.
 
 Selenium reúne criadores de navegadores, engenheiros e entusiastas
@@ -39,132 +30,43 @@ navegadores. Aqui está uma das instruções mais simples que você pode fazer:
 
 
 {{< tabpane langEqualsHeader=true >}}
-  {{< tab header="Java" >}}
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import java.time.Duration;
-
-public class HelloSelenium {
-
-    public static void main(String[] args) {
-        WebDriver driver = new FirefoxDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            driver.get("https://google.com/ncr");
-            driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
-            WebElement firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h3")));
-            System.out.println(firstResult.getAttribute("textContent"));
-        } finally {
-            driver.quit();
-        }
-    }
-}
-  {{< /tab >}}
-  {{< tab header="Python" >}}
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.expected_conditions import presence_of_element_located
-
-#This example requires Selenium WebDriver 3.13 or newer
-with webdriver.Firefox() as driver:
-    wait = WebDriverWait(driver, 10)
-    driver.get("https://google.com/ncr")
-    driver.find_element(By.NAME, "q").send_keys("cheese" + Keys.RETURN)
-    first_result = wait.until(presence_of_element_located((By.CSS_SELECTOR, "h3")))
-    print(first_result.get_attribute("textContent"))
-  {{< /tab >}}
-  {{< tab header="CSharp" >}}
-using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-
-class HelloSelenium {
-  static void Main() {
-    using(IWebDriver driver = new FirefoxDriver()) {
-      WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-      driver.Navigate().GoToUrl("https://www.google.com/ncr");
-      driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
-      wait.Until(webDriver => webDriver.FindElement(By.CssSelector("h3")).Displayed);
-      IWebElement firstResult = driver.FindElement(By.CssSelector("h3"));
-      Console.WriteLine(firstResult.GetAttribute("textContent"));
-    }
-  }
-}
-  {{< /tab >}}
-  {{< tab header="Ruby" >}}
-require 'selenium-webdriver'
-
-driver = Selenium::WebDriver.for :firefox
-wait = Selenium::WebDriver::Wait.new(timeout: 10)
-
-begin
-  driver.get 'https://google.com/ncr'
-  driver.find_element(name: 'q').send_keys 'cheese', :return
-  first_result = wait.until { driver.find_element(css: 'h3') }
-  puts first_result.attribute('textContent')
-ensure
-  driver.quit
-end
-  {{< /tab >}}
-  {{< tab header="JavaScript" >}}
-const {Builder, By, Key, until} = require('selenium-webdriver');
-
-(async function example() {
-    let driver = await new Builder().forBrowser('firefox').build();
-    try {
-        // Navigate to Url
-        await driver.get('https://www.google.com');
-
-        // Enter text "cheese" and perform keyboard action "Enter"
-        await driver.findElement(By.name('q')).sendKeys('cheese', Key.ENTER);
-
-        let firstResult = await driver.wait(until.elementLocated(By.css('h3')), 10000);
-
-        console.log(await firstResult.getAttribute('textContent'));
-    }
-    finally{
-        driver.quit();
-    }
-})();
-  {{< /tab >}}
-  {{< tab header="Kotlin" >}}
+{{< tab header="Java" disableCodeBlock=true >}}
+    {{< gh-codeblock path="/examples/java/src/test/java/dev/selenium/hello/HelloSelenium.java" >}}
+{{< /tab >}}
+{{< tab header="Python" disableCodeBlock=true >}}
+    {{< gh-codeblock path="/examples/python/tests/hello/test_hello_selenium.py" >}}
+{{< /tab >}}
+{{< tab header="CSharp" disableCodeBlock=true >}}
+    {{< gh-codeblock path="/examples/dotnet/SeleniumDocs/Hello/HelloSelenium.cs" >}}
+{{< /tab >}}
+{{< tab header="Ruby" disableCodeBlock=true >}}
+    {{< gh-codeblock path="/examples/ruby/spec/hello/hello_selenium_spec.rb" >}}
+{{< /tab >}}
+{{< tab header="JavaScript" disableCodeBlock=true >}}
+    {{< gh-codeblock path="/examples/javascript/hello/helloSelenium.js" >}}
+{{< /tab >}}
+{{< tab header="Kotlin" disableCodeBlock=true >}}
+    {{< gh-codeblock path="/examples/kotlin/src/test/kotlin/dev/selenium/hello/HelloSelenium.kt" >}}
+{{< /tab >}}
+{{< tab header="Kotlin" >}}
 import org.openqa.selenium.By
-import org.openqa.selenium.Keys
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated
-import org.openqa.selenium.support.ui.WebDriverWait
-import java.time.Duration
+import org.openqa.selenium.chrome.ChromeDriver
 
 fun main() {
-    val driver = FirefoxDriver()
-    val wait = WebDriverWait(driver, Duration.ofSeconds(10))
-    try {
-        driver.get("https://google.com/ncr")
-        driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER)
-        val firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h3")))
-        println(firstResult.getAttribute("textContent"))
-    } finally {
-        driver.quit()
-    }
+    val driver = ChromeDriver()
+
+    driver.get("https://selenium.dev")
+
+    driver.quit()
 }
-  {{< /tab >}}
+{{< /tab >}}
 {{< /tabpane >}}
 
 
+Consulte a [Visão Geral]({{< ref "overview" >}}) para verificar os diferentes componentes do projeto
+e decidir se o Selenium é a ferramenta certa para você.
 
-See the [Overview]({{< ref "/overview.md" >}}) to check the different project 
-components and decide if Selenium is the right tool for you.
-
-You should continue on to [Getting Started]({{< ref "/getting_started.md" >}})
-to understand how you can install Selenium and successfully use it as a test 
-automation tool, and scaling simple tests like this to run in large, distributed 
-environments on multiple browsers, on several different operating systems.
-
+Você deve continuar no Guia de [Introdução]({{< ref "webdriver/getting_started" >}})
+para entender como instalar o Selenium e usá-lo com sucesso como uma 
+ferramenta de automação de teste e dimensionar testes simples como esse para serem executados em ambientes grandes 
+e distribuídos em vários navegadores e em vários sistemas operacionais diferentes.

@@ -1,8 +1,12 @@
 ---
 title: "Capabilities"
 linkTitle: "Capabilities"
-weight: 14
-aliases: ["/documentation/pt-br/driver_idiosyncrasies/"]
+weight: 4
+aliases: [
+"/documentation/pt-br/driver_idiosyncrasies/",
+"/documentation/pt-br/driver_idiosyncrasies/driver_specific_capabilities/",
+"/pt-br/documentation/webdriver/capabilities/driver_specific_capabilities/"
+]
 ---
 
 {{% pageinfo color="warning" %}}

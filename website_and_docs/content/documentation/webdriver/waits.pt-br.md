@@ -1,7 +1,7 @@
 ---
 title: "Esperas"
 linkTitle: "Esperas"
-weight: 4
+weight: 12
 aliases: ["/documentation/pt-br/webdriver/waits/"]
 ---
 
@@ -84,7 +84,7 @@ assert(element.text == "Hello from JavaScript!")
 {{< /tabpane >}}
 
 O problema aqui é que a
-[estratégia de carregamento de página padrão]({{< ref "/page_loading_strategy.md" >}})
+[estratégia de carregamento de página padrão]({{< ref "capabilities/shared#pageloadstrategy" >}})
 usado no WebDriver escuta o `document.readyState`
 para mudar para `"complete"` antes de retornar da chamada para _navigate_.
 Porque o elemento `p` é
@@ -95,15 +95,15 @@ sobre elementos ou eventos que disparam de forma assíncrona
 sem esperar explicitamente - ou bloquear - nesses eventos.
 
 Felizmente, o conjunto normal de instruções disponível na interface
-[_WebElement _]({{< ref "/web_element.md" >}}) - tal
+[_WebElement _]({{< ref "elements" >}}) - tal
   como _WebElement.click_ e _WebElement.sendKeys_ — são
   garantidamente síncrono,
   em que as chamadas de função não retornarão
   (ou o retorno de chamada não será acionado em linguagens de estilo de
   retorno de chamada) até que o comando seja concluído no navegador.
   As APIs avançadas de interação com o usuário,
-  [_Keyboard_]({{< ref "/keyboard.md" >}})
-  e [_Mouse_]({{< ref "/mouse_and_keyboard_actions_in_detail.md">}}),
+  [_Keyboard_]({{< ref "actions_api/keyboard.md" >}})
+  e [_Mouse_]({{< ref "actions_api/mouse.md">}}),
   são exceções, pois são explicitamente pretendidas como
   comandos assíncronos “faça o que eu digo”.
 
@@ -156,7 +156,7 @@ def document_initialised(driver):
     return driver.execute_script("return initialised")
 
 driver.navigate("file:///race_condition.html")
-WebDriverWait(driver).until(document_initialised)
+WebDriverWait(driver, timeout=10).until(document_initialised)
 el = driver.find_element(By.TAG_NAME, "p")
 assert el.text == "Hello from JavaScript!"
   {{< /tab >}}
@@ -164,7 +164,7 @@ assert el.text == "Hello from JavaScript!"
 driver = new ChromeDriver();
 driver.Url = "https://www.google.com/ncr";
 driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
-            
+
 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 IWebElement firstResult = wait.Until(e => e.FindElement(By.XPath("//a/h3")));
 
@@ -226,13 +226,13 @@ podemos refatorar nossas instruções para sermos mais concisos:
   {{< tab header="Java" >}}
 WebElement foo = new WebDriverWait(driver, Duration.ofSeconds(3))
           .until(driver -> driver.findElement(By.name("q")));
-assertEquals(foo.getText(), "Hello from JavaScript!"); 
+assertEquals(foo.getText(), "Hello from JavaScript!");
   {{< /tab >}}
   {{< tab header="Python" >}}
 from selenium.webdriver.support.ui import WebDriverWait
 
 driver.navigate("file:///race_condition.html")
-el = WebDriverWait(driver).until(lambda d: d.find_element_by_tag_name("p"))
+el = WebDriverWait(driver, timeout=3).until(lambda d: d.find_element_by_tag_name("p"))
 assert el.text == "Hello from JavaScript!"
   {{< /tab >}}
   {{< tab header="CSharp" >}}
@@ -379,7 +379,7 @@ sessão.
 {{< tabpane langEqualsHeader=true >}}
   {{< tab header="Java" >}}
 WebDriver driver = new FirefoxDriver();
-driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 driver.get("http://somedomain/url_that_delays_loading");
 WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));
   {{< /tab >}}
@@ -422,7 +422,7 @@ let webElement = driver.findElement(By.id("myDynamicElement"));
   {{< /tab >}}
   {{< tab header="Kotlin" >}}
 val driver = FirefoxDriver()
-driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10))
 driver.get("http://somedomain/url_that_delays_loading")
 val myDynamicElement = driver.findElement(By.id("myDynamicElement"))
   {{< /tab >}}
@@ -455,7 +455,7 @@ WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
   {{< tab header="Python" >}}
 driver = Firefox()
 driver.get("http://somedomain/url_that_delays_loading")
-wait = WebDriverWait(driver, 10, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+wait = WebDriverWait(driver, timeout=10, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "//div")))
   {{< /tab >}}
   {{< tab header="CSharp" >}}

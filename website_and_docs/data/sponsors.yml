@@ -30,6 +30,10 @@ selenium:
     - logo: "/images/sponsors/subject7_logo.png"
       url: "https://www.subject-7.com/?utm_source=SeleniumHQ&utm_medium=referral&utm_campaign=product"
       name: "Subject7"
+    # Added: November 30, 2021
+    - logo: "/images/sponsors/Avo_logo.png"
+      url: "https://www.avoautomation.ai/why-avo//?utm_source=SeleniumHQ&utm_medium=listing&utm_campaign=SeleniumHQ"
+      name: "Avo Automation"
 
 platinum:
   # Set to false if no items are present
@@ -73,11 +77,19 @@ silver:
     - logo: "/images/sponsors/TopBargains_Website_Logo.png"
       url: "https://www.topbargains.com.au/"
       name: "Top Bargains"
+     # Sponsorship start date: Feb 08, 2022
+    - logo: "/images/sponsors/Scraping_Bee_Logo.png"
+      url: "https://www.scrapingbee.com/?utm_source=selenium_sponsor&utm_medium=selenium_sponsor&utm_campaign=selenium_sponsor&utm_id=selenium_sponsor"
+      name: "ScrapingBee"
 
 bronze:
   # Set to false if no items are present
   enable: true
   item:
+    # Sponsorship start date: April 20, 2022
+    - logo: "/images/sponsors/AdsPower.png"
+      url: "https://www.adspower.com/?source=selenium"
+      name: "AdsPower"
     # Sponsorship start date: 2020-03-11
     - logo: "/images/sponsors/landingi_logo.png"
       url: "https://landingi.com/"

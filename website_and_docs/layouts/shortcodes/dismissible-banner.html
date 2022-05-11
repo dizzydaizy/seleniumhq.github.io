@@ -1,0 +1,6 @@
+{{ $alert_type := .Get "alert" }}
+{{ $color := .Get "color" }}
+{{ $title := .Get "title" }}
+{{ $p1 := .Inner }}
+
+{{ partial "alerts.html" (dict "alert_type" $alert_type "title" $title "color" $color "p1" $p1 ) }}

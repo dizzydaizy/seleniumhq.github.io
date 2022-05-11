@@ -11,7 +11,7 @@ This is the repository used to build and publish the official Selenium [website]
 We use [Hugo](https://gohugo.io/) and the [Docsy theme](https://www.docsy.dev/)
 to build and render the site. You will need the “extended” 
 Sass/SCSS version of the Hugo binary to work on this site. We recommend
-to use Hugo 0.83.1 or higher.
+to use Hugo 0.94.0 or higher.
 
 Steps needed to have this working locally and work on it:
 
@@ -54,7 +54,7 @@ repo [settings](https://github.com/SeleniumHQ/seleniumhq.github.io/settings) (if
 you should be able to access the link).
 
 The selenium.dev domain is managed at https://www.gandi.net/en, if you need access to it, reach out to
-any of the [PLC](https://www.selenium.dev/structure/#plc) or [TLC](https://www.selenium.dev/structure/#tlc)
+any of the [PLC](https://www.selenium.dev/project/structure/#plc) or [TLC](https://www.selenium.dev/project/structure/#tlc)
 members, who can help you with that.
 
 If for any reason, you need to setup the domain redirection again,

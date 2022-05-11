@@ -1,7 +1,7 @@
 ---
 title: "Grid"
 linkTitle: "Grid"
-weight: 9
+weight: 6
 description: >
   Want to run tests in parallel across multiple machines? Then, Grid is for you.
 aliases: 
@@ -12,15 +12,6 @@ aliases:
           "/documentation/pt-br/grid/purposes_and_main_functionalities/"
         ]
 ---
-
-{{% pageinfo color="warning" %}}
-<p class="lead">
-   <i class="fas fa-language display-4"></i> 
-   Page being translated from 
-   English to German. Do you speak German? Help us to translate
-   it by sending us pull requests!
-</p>
-{{% /pageinfo %}}
 
 Selenium Grid permite a execução de scripts WebDriver em máquinas remotas (virtuais
 ou reais) por meio de comandos de roteamento enviados pelo cliente para instâncias remotas do navegador.

@@ -1,7 +1,7 @@
 ---
 title: "待機"
 linkTitle: "待機"
-weight: 4
+weight: 12
 aliases: ["/documentation/ja/webdriver/waits/"]
 ---
 
@@ -75,9 +75,9 @@ assert(element.text == "Hello from JavaScript!")
   {{< /tab >}}
 {{< /tabpane >}}
 
-ここでは、WebDriverで使用されるデフォルトの [ページロード戦略]({{< ref "/page_loading_strategy.md" >}}) が`document.readyState`をリッスンして、ナビゲーションの呼び出しから戻る前に`"complete"`に変更することが問題です。ドキュメントの読み込みが完了した後に`p`要素が追加されるため、このWebDriverスクリプトは断続的になる _可能性があります。_ これらのイベントを明示的に待機（またはブロック）せずに非同期でトリガーする要素またはイベントについては保証できないため、断続的である可能性があります。
+ここでは、WebDriverで使用されるデフォルトの [ページロード戦略]({{< ref "capabilities/shared#pageloadstrategy" >}}) が`document.readyState`をリッスンして、ナビゲーションの呼び出しから戻る前に`"complete"`に変更することが問題です。ドキュメントの読み込みが完了した後に`p`要素が追加されるため、このWebDriverスクリプトは断続的になる _可能性があります。_ これらのイベントを明示的に待機（またはブロック）せずに非同期でトリガーする要素またはイベントについては保証できないため、断続的である可能性があります。
 
-幸いなことに、 _WebElement.click_ や _WebElement.sendKeys_ などのWebElementインターフェイスで使用可能な通常の命令セットを使用すると、コマンドの呼び出しがブラウザーで完了するまで関数呼び出しが返されない（または、コールバックはコールバックスタイルの言語ではトリガーされない）ため、同期が保証されます。高度なユーザーインタラクションAPIである[_キーボード_]({{< ref "/keyboard.md" >}})と[_マウス_]({{< ref "/mouse_and_keyboard_actions_in_detail.md" >}})は、 "言うことをする" 非同期コマンドとして明示的に意図されているため、例外です。
+幸いなことに、 _WebElement.click_ や _WebElement.sendKeys_ などのWebElementインターフェイスで使用可能な通常の命令セットを使用すると、コマンドの呼び出しがブラウザーで完了するまで関数呼び出しが返されない（または、コールバックはコールバックスタイルの言語ではトリガーされない）ため、同期が保証されます。高度なユーザーインタラクションAPIである[_キーボード_]({{< ref "actions_api/keyboard.md" >}})と[_マウス_]({{< ref "actions_api/mouse.md" >}})は、 "言うことをする" 非同期コマンドとして明示的に意図されているため、例外です。
 
 待機とは、自動化されたタスクの実行を一定時間経過させてから次のステップに進むことです。
 
@@ -111,7 +111,7 @@ def document_initialised(driver):
     return driver.execute_script("return initialised")
 
 driver.navigate("file:///race_condition.html")
-WebDriverWait(driver).until(document_initialised)
+WebDriverWait(driver, timeout=10).until(document_initialised)
 el = driver.find_element(By.TAG_NAME, "p")
 assert el.text == "Hello from JavaScript!"
   {{< /tab >}}
@@ -119,7 +119,7 @@ assert el.text == "Hello from JavaScript!"
 driver = new ChromeDriver();
 driver.Url = "https://www.google.com/ncr";
 driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
-            
+
 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 IWebElement firstResult = wait.Until(e => e.FindElement(By.XPath("//a/h3")));
 
@@ -174,13 +174,13 @@ println(firstResult.text)
   {{< tab header="Java" >}}
 WebElement foo = new WebDriverWait(driver, Duration.ofSeconds(3))
             .until(driver -> driver.findElement(By.name("q")));
-assertEquals(foo.getText(), "Hello from JavaScript!"); 
+assertEquals(foo.getText(), "Hello from JavaScript!");
   {{< /tab >}}
   {{< tab header="Python" >}}
 from selenium.webdriver.support.ui import WebDriverWait
 
 driver.navigate("file:///race_condition.html")
-el = WebDriverWait(driver).until(lambda d: d.find_element_by_tag_name("p"))
+el = WebDriverWait(driver, timeout=3).until(lambda d: d.find_element_by_tag_name("p"))
 assert el.text == "Hello from JavaScript!"
   {{< /tab >}}
   {{< tab header="CSharp" >}}
@@ -294,7 +294,7 @@ _暗黙的な待機_ と呼ばれる[明示的な待機](#明示的な待機)と
 {{< tabpane langEqualsHeader=true >}}
   {{< tab header="Java" >}}
 WebDriver driver = new FirefoxDriver();
-driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 driver.get("http://somedomain/url_that_delays_loading");
 WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));
   {{< /tab >}}
@@ -337,7 +337,7 @@ let webElement = driver.findElement(By.id("myDynamicElement"));
   {{< /tab >}}
   {{< tab header="Kotlin" >}}
 val driver = FirefoxDriver()
-driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10))
 driver.get("http://somedomain/url_that_delays_loading")
 val myDynamicElement = driver.findElement(By.id("myDynamicElement"))
   {{< /tab >}}
@@ -368,7 +368,7 @@ WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
   {{< tab header="Python" >}}
 driver = Firefox()
 driver.get("http://somedomain/url_that_delays_loading")
-wait = WebDriverWait(driver, 10, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+wait = WebDriverWait(driver, timeout=10, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "//div")))
   {{< /tab >}}
   {{< tab header="CSharp" >}}
@@ -394,7 +394,7 @@ begin
   foo = wait.until { driver.find_element(id: 'foo')}
 ensure
   driver.quit
-end 
+end
   {{< /tab >}}
   {{< tab header="JavaScript" >}}
 const {Builder, until} = require('selenium-webdriver');
@@ -405,7 +405,7 @@ const {Builder, until} = require('selenium-webdriver');
     // Waiting 30 seconds for an element to be present on the page, checking
     // for its presence once every 5 seconds.
     let foo = await driver.wait(until.elementLocated(By.id('foo')), 30000, 'Timed out after 30 seconds', 5000);
-})(); 
+})();
   {{< /tab >}}
   {{< tab header="Kotlin" >}}
 val wait = FluentWait<WebDriver>(driver)

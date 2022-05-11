@@ -1,9 +1,9 @@
 ---
 title: "Grid"
 linkTitle: "Grid"
-weight: 9
+weight: 6
 description: >
-  Want to run tests in parallel across multiple machines? Then, Grid is for you.
+  複数のマシン間で並行してテストを実行したいですか？ その場合、グリッドはあなたのためになります。
 aliases: 
         [
           "/documentation/ja/selenium_installation/installing_standalone_server/",

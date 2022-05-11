@@ -14,9 +14,9 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.83.1'
+          hugo-version: '0.94.0'
           extended: true
       - name: Build
         run: chmod +x build-site.sh && ./build-site.sh
         env:
-          SELENIUM_CI_TOKEN: ${{secrets.SELENIUM_CI_TOKEN}}
+          SELENIUM_CI_TOKEN: ${{ secrets.SELENIUM_CI_TOKEN }}
